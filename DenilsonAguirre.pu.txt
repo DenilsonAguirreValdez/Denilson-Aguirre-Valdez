@@ -1,0 +1,64 @@
+@startuml Examen_1
+
+class Usuario {
+    - usuarioId : integer
+    - nombre : string
+    - librosReservados : List<Libro>
+    + getNombre() : string
+    + setNombre(nombre: string) : void
+    + reservarLibro(libro: Libro) : void
+    + dejarReseña(libro: Libro, comentario: string) : void
+}
+
+class Libro {
+    - libroId : integer
+    - titulo : string
+    - autorId : integer
+    - categorias : List<Categoria>
+    - reseñas : List<Reseña>
+    + getTitulo() : string
+    + setTitulo(titulo: string) : void
+    + agregarCategoria(categoria: Categoria) : void
+    + agregarReseña(usuario: Usuario, comentario: string) : void
+}
+
+class Reseña {
+    - reseñaId : integer
+    - libroId : integer
+    - usuarioId : integer
+    - comentario : string
+    + getComentario() : string
+    + setComentario(comentario: string) : void
+}
+
+class Autor {
+    - autorId : integer
+    - nombre : string
+    - libros : List<Libro>
+    + getNombre() : string
+    + setNombre(nombre: string) : void
+    + agregarLibro(libro: Libro) : void
+}
+
+class Categoria {
+    - categoriaId : integer
+    - nombre : string
+    - libros : List<Libro>
+    + getNombre() : string
+    + setNombre(nombre: string) : void
+    + agregarLibro(libro: Libro) : void
+}
+
+class LibroCategoria {
+    - libroCategoriaId : integer
+    - libroId : integer
+    - categoriaId : integer
+}
+
+Usuario "1" -- "n" Libro : tiene
+Usuario "1" -- "n" Reseña : deja
+Reseña "1" -- "1" Libro : sobre
+Libro "n" -- "1" Autor : escrito por
+Libro "n" -- "1" LibroCategoria : clasificado como
+LibroCategoria "1" -- "n" Categoria : clasificado como
+@enduml
